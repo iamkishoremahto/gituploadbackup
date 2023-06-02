@@ -1,10 +1,11 @@
 import os
 import io
+from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseUpload
 
 # Set up the Google Drive API client
-credentials = {
+credentials_info = {
   "type": "service_account",
   "project_id": "helenzystools",
   "private_key_id": "b4a7bbcff1dc735dde337bb367a9276a49654212",
@@ -17,7 +18,7 @@ credentials = {
   "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/helenzystools%40helenzystools.iam.gserviceaccount.com"
 }
 
-
+credentials = service_account.Credentials.from_service_account_info(credentials_info, scopes=['https://www.googleapis.com/auth/drive'])
 drive_service = build("drive", "v3", credentials=credentials)
 
 # Get the repository data
