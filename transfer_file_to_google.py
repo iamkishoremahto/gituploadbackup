@@ -39,9 +39,10 @@ folder_id = folder.get("id")
 for root, dirs, files in os.walk(repo_path):
     for file in files:
         file_path = os.path.join(root, file)
+        
         file_metadata = {
             "name": file,
             "parents": [folder_id]
         }
-        media = MediaIoBaseUpload(io.FileIO(file_path, "rb"), mimetype="application/octet-stream")
+        media = MediaIoBaseUpload(io.FileIO(file_path, "r"), mimetype="application/octet-stream")
         drive_service.files().create(body=file_metadata, media_body=media).execute()
